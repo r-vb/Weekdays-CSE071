@@ -1,4 +1,4 @@
-// 
+// Weekday Display Panel code.
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -60,6 +60,3 @@ public class WeekdayCountWindow extends JFrame {
         return label;
     }
 }
-
-//01-01-2023
-//31-12-2023

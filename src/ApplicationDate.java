@@ -52,7 +52,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
         inputPanel.add(Box.createVerticalStrut(10));
         inputPanel.add(endDatePanel);
 
-        submitButton = new JButton("Submit");
+        submitButton = new JButton("Let's Go!");
         submitButton.addActionListener(this);
         submitButton.setEnabled(true);
 
@@ -74,13 +74,15 @@ public class ApplicationDate extends JFrame implements ActionListener {
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ApplicationDate::new);
     }
-
+    
+    	// Backend part (computation,exceptions etc.)
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == submitButton) {
             String startDateString = startDateField.getText();
             String endDateString = endDateField.getText();
 
+            // handles start and end dates validity.
             try {
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 LocalDate startDate = LocalDate.parse(startDateString, formatter);
@@ -93,7 +95,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
                 int totalWeekdayCount = countWeekdays(startDate, endDate);
                 resultLabel.setText("Weekdays: " + totalWeekdayCount);
 
-                // Open a new window to display the counts
+                // Opens new window to display the counts of each day (sunday to saturday)
                 WeekdayCountWindow countWindow = new WeekdayCountWindow(
                     getSundayCount(startDate, endDate),
                     getMondayCount(startDate, endDate),
@@ -111,6 +113,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
         }
     }
 
+    // weekdays counting (excluding saturday and sunday)
     private static int countWeekdays(LocalDate startDate, LocalDate endDate) {
         int weekdayCount = 0;
         LocalDate currentDate = startDate;
@@ -126,6 +129,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
         return weekdayCount;
     }
 
+    // counting sundays.
     private static int getSundayCount(LocalDate startDate, LocalDate endDate) {
         int sundayCount = 0;
         LocalDate currentDate = startDate;
@@ -141,6 +145,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
         return sundayCount;
     }
 
+ // counting mondays.
     private static int getMondayCount(LocalDate startDate, LocalDate endDate) {
         int mondayCount = 0;
         LocalDate currentDate = startDate;
@@ -156,6 +161,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
         return mondayCount;
     }
 
+    // counting tuesdays.
     private static int getTuesdayCount(LocalDate startDate, LocalDate endDate) {
         int tuesdayCount = 0;
         LocalDate currentDate = startDate;
@@ -171,6 +177,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
         return tuesdayCount;
     }
 
+    // counting wednesdays
     private static int getWednesdayCount(LocalDate startDate, LocalDate endDate) {
         int wednesdayCount = 0;
         LocalDate currentDate = startDate;
@@ -185,7 +192,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
 
         return wednesdayCount;
     }
-
+    // counting thursdays.
     private static int getThursdayCount(LocalDate startDate, LocalDate endDate) {
         int thursdayCount = 0;
         LocalDate currentDate = startDate;
@@ -201,6 +208,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
         return thursdayCount;
     }
 
+    // counting fridays.
     private static int getFridayCount(LocalDate startDate, LocalDate endDate) {
         int fridayCount = 0;
         LocalDate currentDate = startDate;
@@ -216,6 +224,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
         return fridayCount;
     }
 
+    //
     private static int getSaturdayCount(LocalDate startDate, LocalDate endDate) {
         int saturdayCount = 0;
         LocalDate currentDate = startDate;
