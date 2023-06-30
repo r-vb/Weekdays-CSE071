@@ -1,4 +1,4 @@
-/* changes made so far --- 38times */
+/* changes made so far --- 41times */
 // all required imports
 import javax.swing.BorderFactory;
 import javax.swing.Box;
@@ -10,6 +10,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -17,12 +19,15 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 public class ApplicationDate extends JFrame implements ActionListener {
+    
+    private boolean isSubmitted = false;
+
     private JTextField startDateField;
     private JTextField endDateField;
     private JButton submitButton;
     private JLabel resultLabel;
 
-    		//GUI implementation
+    	//GUI implementation
     public ApplicationDate() {
         setTitle("Weekdays Calci (CSE-071)");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -69,7 +74,14 @@ public class ApplicationDate extends JFrame implements ActionListener {
         setSize(400,250);
         setLocationRelativeTo(null);
         setVisible(true);
-    }
+            
+        addWindowListener(new WindowAdapter() {
+        @Override
+        public void windowClosed(WindowEvent e) {
+            isSubmitted = false;
+        }
+    });
+}
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(ApplicationDate::new);
@@ -78,7 +90,8 @@ public class ApplicationDate extends JFrame implements ActionListener {
     	// Backend part (computation,exceptions etc.)
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == submitButton) {
+    if (e.getSource() == submitButton && !isSubmitted) {
+            isSubmitted = true;
             String startDateString = startDateField.getText();
             String endDateString = endDateField.getText();
 
@@ -192,6 +205,7 @@ public class ApplicationDate extends JFrame implements ActionListener {
 
         return wednesdayCount;
     }
+
     // counting thursdays.
     private static int getThursdayCount(LocalDate startDate, LocalDate endDate) {
         int thursdayCount = 0;
